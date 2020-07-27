@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views import View
 from django.views.generic import ListView
 from .models import Post, Community
 
@@ -7,16 +9,10 @@ class CommunityListView(ListView):
     template_name = 'forum/index.html' #<app>/<model>_<viewtype>.html
     context_object_name = 'communities'
 
-def community(request):
-    context = {
-
-        'posts': Post.objects.filter(community=)
-    }
-    return render(request, 'blog/home.html', context)
-
-class PostListView(ListView):
-    model = Post
-    template_name = 'forum/home.html' #<app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
-    paginate_by = 5
+class CommunityView(View):
+    def get(self, request):
+        context = {
+            'community': Community,
+            'posts': Post.objects.all()
+        }
+        return render(request, 'blog/home.html', context)

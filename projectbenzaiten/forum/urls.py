@@ -1,12 +1,12 @@
 from django.urls import path
 
 from .views import (
-community,
-CommunityListView
+CommunityView,
+CommunityListView,
 )
 
 urlpatterns = [
     path('', CommunityListView.as_view(), name='forum-index'),
-    path('forum/<int:pk>', community.as_view(), name='forum-home')
-    
+    path('forum/<str:title>', CommunityView.as_view(), name='forum-home')
+
 ]

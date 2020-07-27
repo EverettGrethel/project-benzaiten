@@ -10,7 +10,7 @@
 </head>
 <body>
     {% for community in communities %}
-        <a class="mr-2" href="{% url 'user-posts' community. %}">{{ post.author }}</a>
+        <a class="mr-2" href="{% url 'forum-home' community.title %}">{{ post.author }}</a>
     {% endfor %}
 </body>
 </html>
