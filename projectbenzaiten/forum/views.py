@@ -1,10 +1,18 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views import View
 from django.views.generic import ListView
-from .models import Post
+from .models import Post, Community
 
-class PostListView(ListView):
-    model = Post
-    template_name = 'forum/home.html' #<app>/<model>_<viewtype>.html
+class CommunityListView(ListView):
+    model = Community
+    template_name = 'forum/index.html' #<app>/<model>_<viewtype>.html
     context_object_name = 'communities'
-    ordering = ['-date_posted']
-    paginate_by = 5
+
+class CommunityView(View):
+    def get(self, request):
+        context = {
+            'community': Community,
+            'posts': Post.objects.all()
+        }
+        return render(request, 'blog/home.html', context)
