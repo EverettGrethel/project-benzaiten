@@ -9,8 +9,9 @@
     <title>Home</title>
 </head>
 <body>
+    <p>Hello</p>
     {% for community in communities %}
-        <a class="mr-2" href="{% url 'forum-home' community.title %}">{{ post.author }}</a>
+        <a class="mr-2" href="{% url 'forum-home' community.id %}">{{ community.title }}</a>
     {% endfor %}
 </body>
 </html>
