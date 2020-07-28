@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView
@@ -10,9 +10,10 @@ class CommunityListView(ListView):
     context_object_name = 'communities'
 
 class CommunityView(View):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
+        community = get_object_or_404(Community, pk=kwargs['id'])
         context = {
-            'community': Community,
-            'posts': Post.objects.all()
+            'community': community
+            #'posts': Post.objects.all()
         }
-        return render(request, 'blog/home.html', context)
+        return render(request, 'forum/home.html', context)
