@@ -11,9 +11,20 @@ class CommunityListView(ListView):
 
 class CommunityView(View):
     def get(self, request, *args, **kwargs):
-        community = get_object_or_404(Community, pk=kwargs['id'])
+        community = get_object_or_404(Community, title=kwargs['title'])
+        posts = community.post_set.all()
         context = {
-            'community': community
-            #'posts': Post.objects.all()
+            'community': community,
+            'posts': posts
         }
         return render(request, 'forum/home.html', context)
+
+class PostDetailView(View):
+    def get(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, pk=kwargs['id'])
+        community = get_object_or_404(Community, title=kwargs['title'])
+        context = {
+            'community': community,
+            'post': post
+        }
+        return render(request, 'forum/post_detail.html', context)
