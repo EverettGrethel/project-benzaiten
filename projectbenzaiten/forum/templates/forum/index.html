@@ -11,7 +11,7 @@
 <body>
     <p>Hello</p>
     {% for community in communities %}
-        <a class="mr-2" href="{% url 'forum-home' community.id %}">{{ community.title }}</a>
+        <a class="mr-2" href="{% url 'forum-home' community.title %}">{{ community.title }}</a>
     {% endfor %}
 </body>
 </html>
