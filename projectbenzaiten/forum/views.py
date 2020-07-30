@@ -21,7 +21,7 @@ class CommunityView(View):
 
 class PostDetailView(View):
     def get(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, pk=kwargs['id'])
+        post = get_object_or_404(Post, pk=kwargs['pk'])
         community = get_object_or_404(Community, title=kwargs['title'])
         context = {
             'community': community,
