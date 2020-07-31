@@ -1,7 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
+from django.views.generic import (ListView,
+DetailView,
+CreateView,
+UpdateView,
+DeleteView)
+
 from .models import Post, Community
 
 class CommunityListView(ListView):
@@ -28,3 +35,39 @@ class PostDetailView(View):
             'post': post
         }
         return render(request, 'forum/post_detail.html', context)
+
+
+class PostCreateView(LoginRequiredMixin,CreateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView( UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+
+class PostDeleteView( UserPassesTestMixin, LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+

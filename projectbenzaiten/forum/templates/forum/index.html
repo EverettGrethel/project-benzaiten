@@ -9,9 +9,22 @@
     <title>Home</title>
 </head>
 <body>
+              <!-- Navbar Right Side -->
+    <div>
+        {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+    <div>
     <p>Hello</p>
     {% for community in communities %}
         <a class="mr-2" href="{% url 'forum-home' community.title %}">{{ community.title }}</a>
     {% endfor %}
+    </div>
 </body>
 </html>
