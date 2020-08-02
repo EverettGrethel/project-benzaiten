@@ -25,6 +25,8 @@ class CommunityView(View):
             'posts': posts
         }
         return render(request, 'forum/home.html', context)
+    
+    
 
 class PostDetailView(View):
     def get(self, request, *args, **kwargs):
