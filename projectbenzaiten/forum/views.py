@@ -38,10 +38,18 @@ class PostDetailView(View):
         }
         return render(request, 'forum/post_detail.html', context)
 
-
-class PostCreateView(LoginRequiredMixin,CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+
+        community = get_object_or_404(Community, title=kwargs['title'])
+        # Add in a Community corresponding to our title parameter
+        context['community'] = community
+        return context
 
     def form_valid(self, form):
         form.instance.author = self.request.user

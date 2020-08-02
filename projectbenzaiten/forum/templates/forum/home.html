@@ -9,9 +9,14 @@
 </head>
 <body>
 {% block content %}
+    {% if user.is_authenticated %}
+        <div>
+            <a class="nav-item nav-link" href="{% url 'post-create' community.title %}">New Post</a> 
+        </div>
+    {% endif %}
     {% for post in posts %}
         <article class="media content-section">
-            <!--<img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">-->
+            <img style="max-width: 50px" class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
             <div class="media-body">
             <div class="article-metadata">
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>

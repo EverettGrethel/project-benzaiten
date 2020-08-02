@@ -12,27 +12,12 @@
 </head>
 <body>
               <!-- Navbar Right Side -->
-<<<<<<< HEAD
-    <div>
-        {% if !user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-        {% endif %}
-    </div>
-    <div>
-    <p>Hello</p>
-    {% for community in communities %}
-        <a class="mr-2" href="{% url 'forum-home' community.title %}">{{ community.title }}</a>
-    {% endfor %}
-    </div>
-=======
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"></button>
             <span class="navbar-toggler-icon"></span>
             {% if user.is_authenticated %}
-               <!--<a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a> -->
                 <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
             {% else %}
@@ -47,6 +32,5 @@
         </div>
     </nav>
     </header>
->>>>>>> 1906d75305abad3ec705fb32dea0f3b7a2b7bc5f
 </body>
 </html>
